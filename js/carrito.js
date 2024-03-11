@@ -26,72 +26,173 @@ Recuerda la importancia comentar con detalle el código.
  Lo importante es el cálculo, no los estilos css
  */
 
+/* ==========================================================
+                Setting and defining
+   ========================================================== */
 
-const htmlCarrito = document.getElementById("carrito") // carrito container in HTML
-let preuFinal = document.getElementById("preuFinal") // the total of carrito in HTML
-let totalCompra = 0.00  // to set the default 0.00EUR
-preuFinal.innerText = totalCompra
-
-let listaCompra = new Array() //list of shopping list
+const htmlCarrito = document.getElementById("carrito");  // saving HTML <div> where shopping list goes
+const htmlPreuFinal = document.getElementById("preuFinal");  // saving HTML <span> where the total payment amount goes
+let totalCompra = 0.00;   // totalCompra is the actual number goes to HTML #preuFinal, and set 0 as default
+htmlPreuFinal.innerText = totalCompra;  // inserting totalCompra(0) into htmlPreuFinal
 
 
-let tempU = "" // for the uppercase
+let listaCompra = new Array()  // making an array for a shopping cart list
+let tempU = ""  // temporary container to make Upper(camel)case with fruits' name 
+let posicionElemento = listaCompra.length // counting system for the shopping cart list to identify each added item
 
-let posicionElemento = listaCompra.length
 
-// ----------------------- Pomelo ----------------------------
-function agregar(nombreFruta){
+/* ==========================================================
+                         Adding 
+   ========================================================== */
 
-    let infoFruta = new Object() // to make object in advance
-    switch (nombreFruta){
-        case "pomelo" :
-            infoFruta.precio = 2.5
-            infoFruta.nombre = "pomelo"
-            tempU = infoFruta.nombre.slice(0,1).toUpperCase() //For the name of HTML List
-            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1) //For the name of HTML List
-            infoFruta.unidad = "/kg"
+function agregar (nombreFruta) {  // onclick="agregar(this.id)" so it brings #id of div
+
+    let infoFruta = new Object();  // making a new object for all the information of one added item
+
+      // ================   switch condition to add different data ========================
+    switch (nombreFruta) {
+        case "pomelo" :  // ============ pomelo ==============
+            infoFruta.nombre = "pomelo"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 2.5  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
         break;
-        case "kiwi" :
-            infoFruta.precio = 4.2
-            infoFruta.nombre = "kiwi"
-            tempU = infoFruta.nombre.slice(0,1).toUpperCase() //For the name of HTML List
-            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1) //For the name of HTML List
-            infoFruta.unidad = "/kg"
-        
+
+        case "kiwi" :  // ============ kiwi ==============
+            infoFruta.nombre = "kiwi"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 4.2  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
+        break;
+
+        case "limon" :  // ============ limón ==============
+            infoFruta.nombre = "limón"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 1.2  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
+        break;
+
+        case "pinya" :  // ============ piña ==============
+            infoFruta.nombre = "piña"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 2.8  // adding the sold price
+            infoFruta.unidad = "/ud"  // adding the unit name, used in the shopping cart
+        break;
+
+        case "sandia" :  // ============ sandía ==============
+            infoFruta.nombre = "sandía"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 1.2  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
+        break;
+        case "aguacate" :  // ============ aguacate ==============
+            infoFruta.nombre = "aguacate"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 2.5  // adding the sold price
+            infoFruta.unidad = "/ud"  // adding the unit name, used in the shopping cart
+        break;
+
+        case "freson" :  // ============ fresón ==============
+            infoFruta.nombre = "fresón"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 6.2  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
+        break;
+
+        case "mandarina" :  // ============ mandarina ==============
+            infoFruta.nombre = "mandarina"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 1.9  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
+        break;
+
+        case "manzanaf" :  // ============ manzana Fuji ==============
+            infoFruta.nombre = "manzana fuji"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 4.2  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
+        break;
+
+        case "platano" :  // ============ platanos ==============
+            infoFruta.nombre = "plátanos"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 3.2  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
+        break;
+
+        case "pera" :  // ============ pera ==============
+            infoFruta.nombre = "pera"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 1.8  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
+        break;
+
+        case "manzanag" :  // ============ manzana golden ==============
+            infoFruta.nombre = "manzana golden"  // adding the fruits name, used in prompt
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase()  // making the fruits name camelcase
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1)  // adding the fruit name in camel, used in shopping cart
+            infoFruta.precio = 3.5  // adding the sold price
+            infoFruta.unidad = "/kg"  // adding the unit name, used in the shopping cart
     }
-    infoFruta.cantidad = parseFloat(prompt(`¿Qué cantidad de ${infoFruta.nombre} desea?`)).toFixed(2)
+
+    infoFruta.cantidad = prompt(`¿Qué cantidad de ${infoFruta.nombre} desea?`); // adding user input quantity 
     
-    if(infoFruta.cantidad != "NaN"){
+    // ================   validation for numbers  ========================
+    if (infoFruta.cantidad != "NaN") {  // if inserted value is number
 
-        infoFruta.total = Number(parseFloat(infoFruta.precio*infoFruta.cantidad).toFixed(2)) //calculation
+        infoFruta.total = Math.round((infoFruta.precio*infoFruta.cantidad)*100) /100  // adding the total by ( price x quantity )
+        
+        totalCompra = Math.round((totalCompra+infoFruta.total)*100) /100  // updating the total payment amount
+        htmlPreuFinal.innerText = totalCompra  // inserting to HTML for the visual part
 
-        totalCompra += infoFruta.total 
-        console.log("Total ", totalCompra)
-
-        let textCarrito = "" // the containers to add to carrito
-
-        textCarrito += `<p><i class="fa-solid fa-trash-can borrar" onclick="borrar(${posicionElemento})"></i>` //onclick="return this.parentElement.remove() 
+        //textCarrito is what goes inside HTML list of shopping cart when an item is added
+        let textCarrito = ""
+        textCarrito += `<p><i class="fa-solid fa-trash-can borrar" onclick="borrar(this, ${posicionElemento})"></i>` 
         textCarrito += `${infoFruta.nombreCamel} ${infoFruta.cantidad} x ${infoFruta.precio}${infoFruta.unidad} = ${infoFruta.total}€</p>`
         
-        htmlCarrito.innerHTML += textCarrito// adding the tag
+        htmlCarrito.innerHTML += textCarrito// adding the HTML
 
         listaCompra.push(infoFruta)
-        preuFinal.innerText = totalCompra
+        posicionElemento++ //for counting up part for array
 
-        posicionElemento++
-
-    } else { // if the user insert text instead of number
-        alert("Indique un numero por favor") // alert to guide 
+    } else {  // if inserted value is string
+        alert("Indique un numero por favor")  // alert to guide 
     }
 
 }
 
-// -----------------------------------------------------------------
 
+/* ==========================================================
+                     Deleting
+   ========================================================== */
 
-function borrar(posicion){
-    console.log(posicion);
-    listaCompra.splice(posicion,1)
+function borrar(elemento, posicion) {
+    
+    totalCompra = Math.round((totalCompra-listaCompra[posicion].total)*100)/100;
+    console.log(totalCompra)
+    htmlPreuFinal.innerText = totalCompra;
 
+    listaCompra.splice(posicion, 1);
+    
+    // Clear the HTML content of the shopping cart
+    htmlCarrito.innerHTML = "";
+    
+    // Regenerate the HTML content for the entire shopping cart
+    listaCompra.forEach((infoFruta, index) => {
+    let textCarrito = "";
+    textCarrito += `<p><i class="fa-solid fa-trash-can borrar" onclick="borrar(this, ${index})"></i>`;
+    textCarrito += `${infoFruta.nombreCamel} ${infoFruta.cantidad} x ${infoFruta.precio}${infoFruta.unidad} = ${infoFruta.total}€</p>`;
+    htmlCarrito.innerHTML += textCarrito;
+    });
 }
-
