@@ -26,50 +26,72 @@ Recuerda la importancia comentar con detalle el código.
  Lo importante es el cálculo, no los estilos css
  */
 
- /*
-what Im gonna do is,,,
 
-when the person click the image
-pop up an prompt asking the cantidad
-get that information, and calculate with the price
-adding the information on the right side
-i can add and remove
+const htmlCarrito = document.getElementById("carrito") // carrito container in HTML
+let preuFinal = document.getElementById("preuFinal") // the total of carrito in HTML
+let totalCompra = 0.00  // to set the default 0.00EUR
+preuFinal.innerText = totalCompra
 
-preuFinal is the id for final price
+let listaCompra = new Array() //list of shopping list
 
-    <p><i class="fa-solid fa-trash-can borrar" onclick="borrar()"></i>name 1.2 x 1.5/kg = 5.4€</p>
- */
 
-const htmlCarrito = document.getElementById("carrito") // saving carrito area
-let preuFinal = document.getElementById("preuFinal") // setting the total
-preuFinal.innerText = parseFloat(0).toFixed(2) // for the beginning 0.00
+let tempU = "" // for the uppercase
+
+let posicionElemento = listaCompra.length
 
 // ----------------------- Pomelo ----------------------------
-document.getElementById("pomelo").addEventListener("click", (e) =>{
-    let precio = 2.50
-    let cantidad = parseFloat(prompt("¿Qué cantidad de Pomelo desea?")).toFixed(2)
+function agregar(nombreFruta){
+
+    let infoFruta = new Object() // to make object in advance
+    switch (nombreFruta){
+        case "pomelo" :
+            infoFruta.precio = 2.5
+            infoFruta.nombre = "pomelo"
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase() //For the name of HTML List
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1) //For the name of HTML List
+            infoFruta.unidad = "/kg"
+        break;
+        case "kiwi" :
+            infoFruta.precio = 4.2
+            infoFruta.nombre = "kiwi"
+            tempU = infoFruta.nombre.slice(0,1).toUpperCase() //For the name of HTML List
+            infoFruta.nombreCamel = tempU + infoFruta.nombre.slice(1) //For the name of HTML List
+            infoFruta.unidad = "/kg"
+        
+    }
+    infoFruta.cantidad = parseFloat(prompt(`¿Qué cantidad de ${infoFruta.nombre} desea?`)).toFixed(2)
     
-/*  Adding it later.  
-    if(cantidad == "NaN"){
-        alert("Indique un numero por favor")
-    
-    } else {
-*/        
-    let sumProduct = parseFloat(precio*cantidad).toFixed(2) //calculation
+    if(infoFruta.cantidad != "NaN"){
 
-    let textCarrito = ""
+        infoFruta.total = Number(parseFloat(infoFruta.precio*infoFruta.cantidad).toFixed(2)) //calculation
 
-    textCarrito += `<p><i class="fa-solid fa-trash-can borrar" onclick="borrar(this)"></i>` //onclick="return this.parentElement.remove() 
-    textCarrito += `Pomelo ${cantidad} x ${precio} = ${sumProduct}€</p>`
-    
-    htmlCarrito.innerHTML += textCarrito// adding the tag
-    preuFinal.innerText = parseFloat(sumProduct*1+preuFinal.innerText*1).toFixed(2) // changing the total
+        totalCompra += infoFruta.total 
+        console.log("Total ", totalCompra)
 
-//    }   Adding it later
-})
+        let textCarrito = "" // the containers to add to carrito
 
-function borrar(e){
-    e.parentNode.parentNode.removeChild(e.parentNode);
-    preuFinal.innerText = parseFloat(preuFinal.innerText*1-1).toFixed(2) // changing the total
-    return
+        textCarrito += `<p><i class="fa-solid fa-trash-can borrar" onclick="borrar(${posicionElemento})"></i>` //onclick="return this.parentElement.remove() 
+        textCarrito += `${infoFruta.nombreCamel} ${infoFruta.cantidad} x ${infoFruta.precio}${infoFruta.unidad} = ${infoFruta.total}€</p>`
+        
+        htmlCarrito.innerHTML += textCarrito// adding the tag
+
+        listaCompra.push(infoFruta)
+        preuFinal.innerText = totalCompra
+
+        posicionElemento++
+
+    } else { // if the user insert text instead of number
+        alert("Indique un numero por favor") // alert to guide 
+    }
+
 }
+
+// -----------------------------------------------------------------
+
+
+function borrar(posicion){
+    console.log(posicion);
+    listaCompra.splice(posicion,1)
+
+}
+
